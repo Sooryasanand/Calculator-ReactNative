@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import {CalculatorButton, CalculatorDisplay} from './../components';
 import { Ionicons } from '@expo/vector-icons';
+import styl from './calcStyle.js'
 
 require("./../lib/swisscalc.lib.format.js");
 require("./../lib/swisscalc.lib.operator.js");
@@ -69,6 +70,16 @@ export default class CalculatorScreen extends React.Component {
         this.setState({ display: this.calc.getMainDisplay()})
     }
 
+    onNullaryOperatorPress = (operator) => {
+        this.calc.addNullaryOperator(operator);
+        this.setState({ display: this.calc.getMainDisplay()})
+    }
+
+    onPlusMinusPress = () => {
+        this.calc.negate();
+        this.setState({ display: this.calc.getMainDisplay() });
+    }
+
     renderPortrait() {
         return (
             <View style={{flex: 1}}>
@@ -116,8 +127,49 @@ export default class CalculatorScreen extends React.Component {
 
     renderLandscape() {
         return (
-            <View style={{flex:1, paddingTop: 50}}>
-                <Text>Landscape Mode</Text>
+            <View style={{flex:1}}>
+                <StatusBar hidden />
+                <View style={styl.displayContainer}>
+                    <CalculatorDisplay display={this.state.display}/>
+                </View>
+
+                <View style={[styl.buttonContainer]}>
+                    <View style={styl.buttonRow}>
+                        <CalculatorButton onPress={this.onClearPress} title="AC" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={this.OnbackspacePress} title={<Ionicons name="backspace-outline" size={20} color="#eb832d" />} color="#9ea1a4" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.OnBinaryOperatorPress(this.oc.DivisionOperator)}} title="÷" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                    </View>
+
+                    <View style={styl.buttonRow}>
+                        <CalculatorButton onPress={() => {this.onUnaryOperatorPress(this.oc.SquareRootOperator)}} title="√" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("7")}} title="7" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("8")}} title="8" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("9")}} title="9" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.OnBinaryOperatorPress(this.oc.MultiplicationOperator)}} title="x" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                    </View>
+
+                    <View style={styl.buttonRow}>
+                        <CalculatorButton onPress={this.onPlusMinusPress} title="+/-" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("4")}} title="4" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("5")}} title="5" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("6")}} title="6" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.OnBinaryOperatorPress(this.oc.SubtractionOperator)}} title="-" color="#eb832d" backgroundColor="#2a3c4a" style={styl.calcbutton}/>
+                    </View>
+
+                    <View style={styl.buttonRow}>
+                        <CalculatorButton onPress={() => {this.onUnaryOperatorPress(this.oc.PercentOperator)}} title="%" color="#eb832d" backgroundColor="#2a3c4a"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("1")}} title="1" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("2")}} title="2" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress("3")}} title="3" color="#9ea1a4" backgroundColor="#2a3c4a" fontWeight="bold" style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.OnBinaryOperatorPress(this.oc.AdditionOperator)}} title="+" color="#eb832d" backgroundColor="#2a3c4a" style={styl.calcbutton}/>
+                    </View>
+
+                    <View style={styl.buttonRow}>
+                        <CalculatorButton onPress={() => {this.onDigitPress("0")}} title="0" color="#eb832d" backgroundColor="#2a3c4a" fontWeight="bold"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={() => {this.onDigitPress(".")}} title="." color="#eb832d" backgroundColor="#2a3c4a" fontWeight="bold"  style={styl.calcbutton}/>
+                        <CalculatorButton onPress={this.OnEqualPress} title="=" color="white" backgroundColor="#eb832d" style={{flex: 2, width: 65, height: 40}} />
+                    </View>
+                </View>
             </View>
         )
     }
@@ -150,6 +202,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     buttonContainer: {
-        paddingBottom: 30
+        paddingBottom: 20
     }
 });

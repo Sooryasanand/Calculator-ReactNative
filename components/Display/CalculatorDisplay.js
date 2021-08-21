@@ -6,6 +6,7 @@ export default class CalculatorDisplay extends React.Component {
 
     static defaultProps = {
         display: "",
+        style: { },
     }
 
     render() {

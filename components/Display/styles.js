@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     display: {
-        fontSize: 70,
+        fontSize: 50,
         color: "white",
         textAlign: 'right'
     }
