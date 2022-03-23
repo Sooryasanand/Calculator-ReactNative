@@ -1,5 +1,5 @@
 # Calculator
-A Scientific Calculator made using React Native. This app can calculate any number like a usual calculator. This calculator is build using a library called [swisscal](https://github.com/ericmorgan1/swisscalc-lib). Swiss Calc library is a JavaScript library used for building Javascript-based calculators.
+A Scientific Calculator made using React Native. This app can calculate any number like a usual calculator. This calculator is build using a library called [SwissCalc](https://github.com/ericmorgan1/swisscalc-lib). Swiss Calc library is a JavaScript library used for building Javascript-based calculators.
 
 ## How to run the app
 1. Head over to the final folder in the repo.
